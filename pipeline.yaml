@@ -1,9 +1,9 @@
 kind: BuildConfig
 apiVersion: v1
 metadata:
-  name: spring-gitflow-pipeline
+  name: spring-boot-demo-pipeline
   labels:
-    app: sprin-gitflow
+    app: spring-boot-demo
 spec:
   resources:
     requests:
