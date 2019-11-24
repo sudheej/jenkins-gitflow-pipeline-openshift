@@ -1,4 +1,4 @@
-zdef applicationName = "spring-boot-demo";
+def applicationName = "spring-boot-demo";
 def applicationNameST = "${applicationName}-st";
 
 pipeline{
