@@ -23,7 +23,7 @@ pipeline{
                     openshift.withCluster(){
                         openshift.withProject(){
                             def build = openshift.selector("bc", applicationName);
-                            def startedBuild = build.startBuild("--from-file=\"./${applicationName}/target/*.jar\"");
+                            def startedBuild = build.startBuild("--from-file=\"./${applicationName}/target/demo-0.0.1-SNAPSHOT.jar\"");
                             startedBuild.logs('-f');
                             echo "${applicationName} build status: ${startedBuild.object().status}";                            
                         }
