@@ -9,6 +9,7 @@ pipeline{
     stages{
             stage('build') {
                 steps{
+                    git branch: 'master', url: 'https://github.com/sudheej/jenkins-gitflow-pipeline-openshift.git'
                     sh script: "cd ${applicationName} && mvn -DskipTests clean package && pwd && ls -ltR"   
                 }
             }   
