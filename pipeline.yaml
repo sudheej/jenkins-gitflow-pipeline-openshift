@@ -12,6 +12,5 @@ spec:
   source:
     type: None
   strategy:
-    type: JenkinsPipeline
     jenkinsPipelineStrategy:
       jenkinsfilePath: Jenkinsfile
