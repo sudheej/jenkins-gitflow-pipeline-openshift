@@ -10,10 +10,7 @@ spec:
       cpu: 2000Mi
       memory: 1G
   source:
-    git:
-      ref: master
-      uri: "https://github.com/sudheej/jenkins-gitflow-pipeline-openshift.git"
-    type: Git
+    type: None
   strategy:
     type: JenkinsPipeline
     jenkinsPipelineStrategy:
