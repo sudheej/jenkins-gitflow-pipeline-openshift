@@ -5,6 +5,10 @@ metadata:
   labels:
     app: spring-boot-demo
 spec:
+  output:
+    to:
+      kind: "DockerImage"
+      name: "registry.hub.docker.com/sudheej/jenkins-openshift-maven:latest"
   resources:
     requests:
       cpu: 2000Mi
@@ -12,5 +16,35 @@ spec:
   source:
     type: None
   strategy:
+    type: JenkinsPipeline
     jenkinsPipelineStrategy:
-      jenkinsfilePath: Jenkinsfile
+      jenkinsfile: |-
+        pipeline {
+          agent {
+            label 'maven'
+          }
+          stages {
+            stage('Build App') {
+              steps {
+                git branch: 'master', url: 'https://github.com/sudheej/jenkins-gitflow-pipeline-openshift.git'
+                sh "cd spring-boot-demo && mvn -DskipTests clean package"
+              }
+            }
+            stage('Test') {
+              steps {
+                sh "cd spring-boot-demo && mvn test"
+              }
+            }
+            stage('Build Image') {
+              steps {
+                script {
+                  openshift.withCluster() {
+                    openshift.withProject() {
+                          openshift.selector("bc", "spring-boot-demo-pipeline").startBuild("--from-file=spring-boot-demo/target/demo-0.0.1-SNAPSHOT.jar --server=https://192.168.42.127:8443/", "--wait=true")                       
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }

@@ -23,8 +23,7 @@ pipeline{
                 script{
                     openshift.withCluster(){
                         openshift.withProject(){
-                            def build = openshift.selector("bc", "spring-boot-demo-pipeline");
-                            def startedBuild = build.startBuild("--from-file=\"./${applicationName}/target/demo-0.0.1-SNAPSHOT.jar\"");                          
+                            openshift.selector("bc", "spring-boot-demo-pipeline").startBuild("--from-file=${applicationName}/target/demo-0.0.1-SNAPSHOT.jar", "--wait=true")                       
                         }
                     }
                 }
